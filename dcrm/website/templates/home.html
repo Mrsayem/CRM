@@ -1,0 +1,55 @@
+{% extends "base.html" %} {% block content %} {% if user.is_authenticated %}
+
+<table class="table table-striped table-hover table-bordered p-3">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">phone</th>
+      <th scope="col">divison</th>
+      <th scope="col">Image</th>
+      <th scope="col">created_at</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% if records %} {% for i in records %}
+
+    <tr>
+      <td><a href="{% url "record" i.id %}">{{i.id}}</a></td>
+      <td>{{i.name}}</td>
+      <td>{{i.phone}}</td>
+      <td>{{i.divison}}</td>
+      <td>{{i.image}}</td>
+      <td>{{i.created_at}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endif %} {%else%}
+<div class="col-md-8 offset-md-3 ">
+<h2>Login In your Account</h2>
+<br />
+<br />
+<form action="{% url 'home' %}" method="post">
+  {% csrf_token %}
+  <div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label"
+      >Enter Your Name</label
+    >
+    <input type="text" class="form-control" name="username" required />
+  </div>
+  <div class="mb-3">
+    <label for="inputPassword5" class="form-label">Password</label>
+    <input
+      type="password"
+      class="form-control"
+      aria-describedby="passwordHelpBlock"
+      name="password"
+      required
+    />
+  </div>
+  <button type="submit" class="btn btn-secondary">LogIn</button>
+</form>
+</div>
+
+{% endif %} {% endblock content %}
